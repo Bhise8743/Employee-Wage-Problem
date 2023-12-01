@@ -14,6 +14,23 @@
 
 
 import random
+wage_per_hr = 20
+full_time_wk_hr = 8
+part_time_wk_hr = 4
+
+def random_check():
+    """
+       Description:
+           This function use to return the random value 0 or 1
+
+       Parameter:
+           None
+
+       Return: int value
+       """
+    return random.randint(0, 1)
+
+
 def check_attendence():
     """
         Description:
@@ -24,8 +41,7 @@ def check_attendence():
 
         Return: Boolean Value
     """
-
-    ran_int = random.randint(0,1)
+    ran_int = random_check()
     if ran_int == 1:
         print("Employee Present ")
         return True
@@ -42,16 +58,26 @@ def emp_dly_wage():
 
         Return: None
     """
-    wage_per_hr = 20
-    working_hr = 8
-    wage = wage_per_hr * working_hr
-    print("Employee Daily wage is : ", wage)
 
 
-if __name__=="__main__":
+    rand_int = random_check()
+
+    if rand_int == 1:
+        part_time_wage = wage_per_hr * part_time_wk_hr
+        print(f"Employee Doing the part time work it's wage is :  {part_time_wage}")
+    else:
+        full_time_wage = wage_per_hr * full_time_wk_hr
+        print(f"Employee Daily Full Time Wage is : {full_time_wage}")
+
+def main():
     print("Welcome To Employee Wage Computation Program ")
 
     if check_attendence():
         emp_dly_wage()
     else:
         print("Employee Daily Wage is 0 ")
+
+
+if __name__=="__main__":
+    main()
+
