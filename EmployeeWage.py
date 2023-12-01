@@ -2,11 +2,11 @@
 
 @Author: Omkar Bhise
 
-@Date: 2023-12-01 11:45:30
+@Date: 2023-12-01 05:45:30
 
 @Last Modified by: Omkar Bhise
 
-@Last Modified time: 2023-11-29 1:00:00
+@Last Modified time: 2023-12-01 5:30:00
 
 @Title :  Employee Wage
 
@@ -92,6 +92,28 @@ def UsingSwitchCase():  #UC 4
         case 2:
             print("Employee Absent ")
 
+def Cal_wage_for_month():      #UC 5
+    """
+           Description:
+               This function use to Calculating the wage for the month
+
+           Parameter:
+               None
+
+           Return: None
+       """
+    wage_for_month = 0
+    for i in range(20):
+        if random_check():
+            if random_check():  #if true then Eml Doing the part-time work
+                print(f"day {i+1} working part-time wage is : 4")
+                wage_for_month += wage_per_hr * part_time_wk_hr
+            else:
+                print(f"day {i+1} Employee working full time wage is : 8")
+                wage_for_month += wage_per_hr * full_time_wk_hr
+        else:
+            print(f"day {i+1} Employee Absent ")
+    print(f"Total wage of 20 days {wage_for_month}")
 
 def main():
     """
@@ -113,8 +135,8 @@ def main():
 
     # UsingSwitchCase()
 
-    # Cal_wage_for_month()
-    total_wk_hr_or_days_reached_for_month()
+    Cal_wage_for_month()
+    # total_wk_hr_or_days_reached_for_month()
 
 if __name__=="__main__":
     main()
