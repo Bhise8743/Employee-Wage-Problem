@@ -115,6 +115,33 @@ def Cal_wage_for_month():      #UC 5
             print(f"day {i+1} Employee Absent ")
     print(f"Total wage of 20 days {wage_for_month}")
 
+
+def total_wk_hr_or_days_reached_for_month():        #UC 6
+    """
+           Description:
+               This function use to Calculate Wages till a condition of total working
+           #   working hours or days is reached for a month
+
+           Parameter:
+               None
+
+           Return: None
+       """
+    wage = 0
+    wk_hr = 0
+    day = 1
+
+    while wk_hr <= 100 and day <= 20:
+        if random_check():      #it checks the employee percent or not
+            day += 1
+            if random_check():      # it checks the employee doing part-time work
+                wage = wage_per_hr * part_time_wk_hr
+                wk_hr += 4
+            else:
+                wage = wage_per_hr * full_time_wk_hr
+                wk_hr += 8
+    print(f"100 working hours or {day} days works {wk_hr * 20}")
+
 def main():
     """
            Description:
@@ -135,8 +162,9 @@ def main():
 
     # UsingSwitchCase()
 
-    Cal_wage_for_month()
-    # total_wk_hr_or_days_reached_for_month()
+    # Cal_wage_for_month()
+
+    total_wk_hr_or_days_reached_for_month()
 
 if __name__=="__main__":
     main()
