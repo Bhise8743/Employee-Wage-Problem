@@ -6,17 +6,18 @@
 
 @Last Modified by: Omkar Bhise
 
-@Last Modified time: 2023-12-01 5:30:00
+@Last Modified time: 2023-12-02 10:30:00
 
 @Title :  Employee Wage
 
 """
 
-
 import random
+
 wage_per_hr = 20
 full_time_wk_hr = 8
 part_time_wk_hr = 4
+
 
 def random_check():
     """
@@ -48,6 +49,7 @@ def check_attendence():
     else:
         print("Employee Not Present ")
 
+
 def emp_dly_wage():
     """
         Description:
@@ -59,7 +61,6 @@ def emp_dly_wage():
         Return: None
     """
 
-
     rand_int = random_check()
 
     if rand_int == 1:
@@ -70,7 +71,7 @@ def emp_dly_wage():
         print(f"Employee Daily Full Time Wage is : {full_time_wage}")
 
 
-def UsingSwitchCase():  #UC 4
+def UsingSwitchCase():  # UC 4
     """
         Description:
             This function use to Calculate the Daily full time or part-time wage
@@ -92,7 +93,8 @@ def UsingSwitchCase():  #UC 4
         case 2:
             print("Employee Absent ")
 
-def Cal_wage_for_month():      #UC 5
+
+def Cal_wage_for_month():  # UC 5
     """
            Description:
                This function use to Calculating the wage for the month
@@ -105,18 +107,18 @@ def Cal_wage_for_month():      #UC 5
     wage_for_month = 0
     for i in range(20):
         if random_check():
-            if random_check():  #if true then Eml Doing the part-time work
-                print(f"day {i+1} working part-time wage is : 4")
+            if random_check():  # if true then Eml Doing the part-time work
+                print(f"day {i + 1} working part-time wage is : 4")
                 wage_for_month += wage_per_hr * part_time_wk_hr
             else:
-                print(f"day {i+1} Employee working full time wage is : 8")
+                print(f"day {i + 1} Employee working full time wage is : 8")
                 wage_for_month += wage_per_hr * full_time_wk_hr
         else:
-            print(f"day {i+1} Employee Absent ")
+            print(f"day {i + 1} Employee Absent ")
     print(f"Total wage of 20 days {wage_for_month}")
 
 
-def total_wk_hr_or_days_reached_for_month():        #UC 6
+def total_wk_hr_or_days_reached_for_month():  # UC 6
     """
            Description:
                This function use to Calculate Wages till a condition of total working
@@ -130,17 +132,27 @@ def total_wk_hr_or_days_reached_for_month():        #UC 6
     wage = 0
     wk_hr = 0
     day = 1
-
+    part_time_wr_days = 0
+    full_time_work_days = 0
     while wk_hr <= 100 and day <= 20:
-        if random_check():      #it checks the employee percent or not
+        if random_check():  # it checks the employee percent or not
             day += 1
-            if random_check():      # it checks the employee doing part-time work
-                wage = wage_per_hr * part_time_wk_hr
+            if random_check():  # it checks the employee doing part-time work
+                wage += wage_per_hr * part_time_wk_hr
+                part_time_wr_days += 1
                 wk_hr += 4
             else:
-                wage = wage_per_hr * full_time_wk_hr
+                wage += wage_per_hr * full_time_wk_hr
+                full_time_work_days += 1
                 wk_hr += 8
+    print(f"part time work days {part_time_wr_days} full time work days {full_time_work_days}")
+    print(f"total part time work hours {part_time_wr_days * 4} or calculated {part_time_wk_hr}")
+    print(f"total full time work hours {full_time_work_days * 8} or calculated {full_time_wk_hr}")
+    total = part_time_wr_days * 4
+    total += full_time_work_days * 8
+    print(f"total is : {total * 20}")
     print(f"100 working hours or {day} days works {wk_hr * 20}")
+
 
 def main():
     """
@@ -166,6 +178,6 @@ def main():
 
     total_wk_hr_or_days_reached_for_month()
 
-if __name__=="__main__":
-    main()
 
+if __name__ == "__main__":
+    main()
