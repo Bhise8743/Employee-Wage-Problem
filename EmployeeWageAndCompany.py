@@ -76,6 +76,7 @@ class Company:
     def __init__(self, comp_name):
         self.comp_name = comp_name
         self.emp_dict = {}
+        self.emp_id = 1000 # Emp id start from the company
 
     def add_employee(self, emp_obj: Employee):
         """
@@ -101,7 +102,7 @@ class Company:
         """
         for key, value in self.emp_dict.items():  # items take a key value pairs
             print(f"Emp_id : {key} Name : {value.emp_name} Total wage : {value.total_wage} PT : {value.pt_tm_wk_days} FT : {value.fl_tm_wk_days} WH : {value.wk_hr}")
-            # inside value Employee Class object is persent
+            # inside value Employee Class object is present
 
     def get_emp(self, emp_id):
         """
@@ -151,6 +152,79 @@ class Company:
             print("Employee not present ")
 
 
+class MultipleCom:
+
+    def __init__(self):
+        self.com_dict = {}
+
+    def add_company(self, com_obj:Company):
+        """
+           Description:
+               this function add new company in function
+
+           Parameter: self , Company object
+
+           Return: None
+
+        """
+        self.com_dict.update({com_obj.comp_name : com_obj})
+
+    def get_company(self,com_name):
+        """
+           Description:
+               this function return the company present or not
+
+           Parameter: self , Company name
+
+           Return: Company Object
+
+        """
+        return self.com_dict.get(com_name)
+
+    def get_company_with_all_emp_details(self, com_name):
+        """
+           Description:
+               this function print the company name and Emp Present in the company
+
+           Parameter: self , company name
+
+           Return: None
+
+        """
+        com_obj:Company = self.com_dict.get(com_name)
+        if com_obj:
+            print(f"{com_obj.comp_name} and Total Employees in com {len(com_obj.emp_dict) } ")
+            com_obj.get_all_emp_details()
+
+    def get_all_com_details(self):
+        """
+           Description:
+               this function print the all Company names and Employee present inside the company
+
+           Parameter: self , Employee object
+
+           Return: None
+
+        """
+        for key,value in self.com_dict.items():
+            print(f"Company Name : {key} Total Employees in com {value.emp_id - 1000}")
+
+    def remove_company(self, com_name):
+        """
+           Description:
+               this function used to remove the Company for the multiple company class
+
+           Parameter: self , Employee object
+
+           Return: None
+
+        """
+        try:
+            self.com_dict.pop(com_name)
+        except Exception as ex:
+            print("Company is not present ")
+
+
 def main():
     """
        Description:
@@ -161,39 +235,64 @@ def main():
        Return: None
 
     """
-    com1 = Company("TCS")
 
-    emp_id = 1000
+    m_com = MultipleCom()
     while True:
         user_choice = int(input(f"""Enter the choice 
                         1. Add Emp details 
                         2. get Emp Details
                         3. get All emp details
                         4. Update Emp details
-                        5. Remove emp form {com1.comp_name}
-                        6. exist
+                        5. Remove emp form
+                        6. Get Comp with all Epm details
+                        7. Get all Company details
+                        8. Remove Company form Mul Company
+                        9. exist
         """))
 
         match user_choice:
             case 1:
+                com_name = input("Enter the company name ")
+                com = m_com.get_company(com_name)
+                if com is None:
+                    com = Company(com_name)
+
                 name = input("Enter the employee name ")
                 wage_per_hr = int(input("Enter the wage per hours "))
-                emp_obj = Employee(emp_id, name, wage_per_hr, 4, 8, 100, 20)
-                emp_id += 1
+                emp_obj = Employee(com.emp_id, name, wage_per_hr, 4, 8, 100, 20)
+                com.emp_id += 1
                 emp_obj.emp_wage_of_month()
-                com1.add_employee(emp_obj)
+                com.add_employee(emp_obj)
+
+                m_com.add_company(com)
             case 2:
-                e_id = int(input(f"Enter the employee id between 1000 to {emp_id - 1} "))
-                com1.get_emp(e_id)
+                e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
+                com.get_emp(e_id)
             case 3:
-                com1.get_all_emp_details()
+                com.get_all_emp_details()
             case 4:
-                e_id = int(input(f"Enter the employee id between 1000 to {emp_id -1} "))
-                com1.update_emp(e_id)
+                com_name = input("Enter the company name ")
+                com = m_com.get_company(com_name)
+                if not com:
+                    print("Company not found ")
+                e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id -1} "))
+                com.update_emp(e_id)
             case 5:
-                e_id = int(input(f"Enter the employee id between 1000 to {emp_id - 1} "))
-                com1.remove_emp(e_id)
+                com_name = input("Enter the company name ")
+                com = m_com.get_company(com_name)
+                if not com:
+                    print("Company not found ")
+                e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
+                com.remove_emp(e_id)
             case 6:
+                com_name = input("Enter the company name ")
+                m_com.get_company_with_all_emp_details(com_name)
+            case 7:
+                m_com.get_all_com_details()
+            case 8:
+                com_name = input("Enter the company name ")
+                m_com.remove_company(com_name)
+            case 9:
                 break
 
 
