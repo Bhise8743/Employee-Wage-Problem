@@ -2,11 +2,11 @@
 
 @Author: Omkar Bhise
 
-@Date: 2023-12-05 12:15:30
+@Date: 2023-12-08 9:15:30
 
 @Last Modified by: Omkar Bhise
 
-@Last Modified time: 2023-12-06 04:30:00
+@Last Modified time: 2023-12-08 10:30:00
 
 @Title :  Employee Wage and Company using class and methods
 
@@ -114,11 +114,11 @@ class Company:
            Return: None
 
         """
-        emp: Employee = self.emp_dict.get(emp_id)
-        if emp:
+        try:
+            emp: Employee = self.emp_dict.get(emp_id)
             print(f"Emp id : {emp.emp_id} Name is : {emp.emp_name} Total wage : {emp.total_wage}")
-        else:
-            print("Employee not Present ")
+        except Exception as ex:
+            print("Employee not Present in Company ")
 
     def update_emp(self, e_id):
         """
@@ -130,10 +130,10 @@ class Company:
            Return: None
 
         """
-        emp: Employee = self.emp_dict.get(e_id)
-        if emp:
+        try:
+            emp: Employee = self.emp_dict.get(e_id)
             emp.emp_wage_of_month()
-        else:
+        except Exception as ex:
             print("Employee not Present ")
 
     def remove_emp(self, emp_id):
@@ -206,7 +206,8 @@ class MultipleCom:
            Return: None
 
         """
-        for key,value in self.com_dict.items():
+
+        for key, value in self.com_dict.items():
             print(f"Company Name : {key} Total Employees in com {value.emp_id - 1000}")
 
     def remove_company(self, com_name):
@@ -238,62 +239,66 @@ def main():
 
     m_com = MultipleCom()
     while True:
-        user_choice = int(input(f"""Enter the choice 
-                        1. Add Emp details 
-                        2. get Emp Details
-                        3. get All emp details
-                        4. Update Emp details
-                        5. Remove emp form
-                        6. Get Comp with all Epm details
-                        7. Get all Company details
-                        8. Remove Company form Mul Company
-                        9. exist
-        """))
+        try:
+            user_choice = int(input(f"""Enter the choice 
+                            1. Add Emp details 
+                            2. get Emp Details
+                            3. get All emp details
+                            4. Update Emp details
+                            5. Remove emp form Company
+                            6. Get Comp with all Epm details
+                            7. Get all Company details
+                            8. Remove Company form Multiple Company
+                            9. exist
+            """))
 
-        match user_choice:
-            case 1:
-                com_name = input("Enter the company name ")
-                com = m_com.get_company(com_name)
-                if com is None:
-                    com = Company(com_name)
+            match user_choice:
+                case 1:
+                    com_name = input("Enter the company name ")
+                    com = m_com.get_company(com_name)
+                    if com is None:
+                        com = Company(com_name)
 
-                name = input("Enter the employee name ")
-                wage_per_hr = int(input("Enter the wage per hours "))
-                emp_obj = Employee(com.emp_id, name, wage_per_hr, 4, 8, 100, 20)
-                com.emp_id += 1
-                emp_obj.emp_wage_of_month()
-                com.add_employee(emp_obj)
+                    name = input("Enter the employee name ")
+                    wage_per_hr = int(input("Enter the wage per hours "))
+                    emp_obj = Employee(com.emp_id, name, wage_per_hr, 4, 8, 100, 20)
+                    com.emp_id += 1
+                    emp_obj.emp_wage_of_month()
+                    com.add_employee(emp_obj)
 
-                m_com.add_company(com)
-            case 2:
-                e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
-                com.get_emp(e_id)
-            case 3:
-                com.get_all_emp_details()
-            case 4:
-                com_name = input("Enter the company name ")
-                com = m_com.get_company(com_name)
-                if not com:
-                    print("Company not found ")
-                e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id -1} "))
-                com.update_emp(e_id)
-            case 5:
-                com_name = input("Enter the company name ")
-                com = m_com.get_company(com_name)
-                if not com:
-                    print("Company not found ")
-                e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
-                com.remove_emp(e_id)
-            case 6:
-                com_name = input("Enter the company name ")
-                m_com.get_company_with_all_emp_details(com_name)
-            case 7:
-                m_com.get_all_com_details()
-            case 8:
-                com_name = input("Enter the company name ")
-                m_com.remove_company(com_name)
-            case 9:
-                break
+                    m_com.add_company(com)
+                case 2:
+                    com = input("Enter the company name ")
+                    com = m_com.get_company(com_name)
+                    e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
+                    com.get_emp(e_id)
+
+                case 3:
+                    com_name = input("Enter the company name ")
+                    com = m_com.get_company(com_name)
+                    com.get_all_emp_details()
+                case 4:
+                    com_name = input("Enter the company name ")
+                    com = m_com.get_company(com_name)
+                    e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
+                    com.update_emp(e_id)
+                case 5:
+                    com_name = input("Enter the company name ")
+                    com = m_com.get_company(com_name)
+                    e_id = int(input(f"Enter the employee id between 1000 to {com.emp_id - 1} "))
+                    com.remove_emp(e_id)
+                case 6:
+                    com_name = input("Enter the company name ")
+                    m_com.get_company_with_all_emp_details(com_name)
+                case 7:
+                    m_com.get_all_com_details()
+                case 8:
+                    com_name = input("Enter the company name ")
+                    m_com.remove_company(com_name)
+                case 9:
+                    break
+        except Exception as ex:
+            print(ex)
 
 
 if __name__ == '__main__':
